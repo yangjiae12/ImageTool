@@ -46,6 +46,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 #ifndef _DEBUG  // ImageToolView.cpp의 디버그 버전

@@ -18,6 +18,8 @@
 #define new DEBUG_NEW
 #endif
 
+
+
 // CImageToolDoc
 
 IMPLEMENT_DYNCREATE(CImageToolDoc, CDocument)
@@ -136,3 +138,22 @@ void CImageToolDoc::Dump(CDumpContext& dc) const
 
 
 // CImageToolDoc 명령
+
+
+BOOL CImageToolDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+
+	return m_Dib.Load(CT2A(lpszPathName));
+}
+
+
+BOOL CImageToolDoc::OnSaveDocument(LPCTSTR lpszPathName)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	return m_Dib.Save(CT2A(lpszPathName));
+}

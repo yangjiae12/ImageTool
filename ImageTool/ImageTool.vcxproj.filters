@@ -48,6 +48,15 @@
     <ClInclude Include="IppDib.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IppImage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RGBBYTE.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="IppConvert.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageTool.cpp">
@@ -72,6 +81,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="IppDib.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IppConvert.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

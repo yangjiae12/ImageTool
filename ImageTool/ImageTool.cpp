@@ -144,6 +144,11 @@ BOOL CImageToolApp::InitInstance()
 	EnableShellOpen();
 	RegisterShellFileTypes(TRUE);
 
+	// 프로그램 시작 시 빈 창을 띄우지 않는다.
+	if (cmdInfo.m_nShellCommand == CCommandLineInfo::FileNew)
+		cmdInfo.m_nShellCommand = CCommandLineInfo::FileNothing;
+
+
 
 	// 명령줄에 지정된 명령을 디스패치합니다.
 	// 응용 프로그램이 /RegServer, /Register, /Unregserver 또는 /Unregister로 시작된 경우 FALSE를 반환합니다.

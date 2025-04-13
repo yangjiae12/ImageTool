@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CImageToolView, CScrollView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CImageToolView 생성/소멸
@@ -55,14 +56,16 @@ BOOL CImageToolView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CImageToolView 그리기
 
-void CImageToolView::OnDraw(CDC* /*pDC*/)
+void CImageToolView::OnDraw(CDC* pDC)
 {
 	CImageToolDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+	if (pDoc->m_Dib.IsValid())
+		pDoc->m_Dib.Draw(pDC->m_hDC);
+
 }
 
 void CImageToolView::OnInitialUpdate()
@@ -70,9 +73,19 @@ void CImageToolView::OnInitialUpdate()
 	CScrollView::OnInitialUpdate();
 
 	CSize sizeTotal;
-	// TODO: 이 뷰의 전체 크기를 계산합니다.
-	sizeTotal.cx = sizeTotal.cy = 100;
+	CImageToolDoc* pDoc = GetDocument();
+	if (pDoc->m_Dib.IsValid())
+	{
+		sizeTotal.cx = pDoc->m_Dib.GetWidth();
+		sizeTotal.cy = pDoc->m_Dib.GetHeight();
+	}
+	else
+	{
+		sizeTotal.cx = sizeTotal.cy = 100;
+	}
+
 	SetScrollSizes(MM_TEXT, sizeTotal);
+	ResizeParentToFit(TRUE);
 }
 
 
@@ -151,4 +164,17 @@ void CImageToolView::OnLButtonDown(UINT nFlags, CPoint point)
 
 
 	CScrollView::OnLButtonDown(nFlags, point);
+}
+
+
+BOOL CImageToolView::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CBrush br;
+	br.CreateHatchBrush(HS_DIAGCROSS, RGB(200, 200, 200)); //브러쉬 패턴
+	FillOutsideRect(pDC, &br);// 스크롤되는 영역의 바깥부분을 브러쉬로 채움
+
+
+
+	return TRUE;
 }

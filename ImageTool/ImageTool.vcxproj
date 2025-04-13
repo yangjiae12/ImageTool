@@ -188,11 +188,14 @@
     <ClInclude Include="ImageTool.h" />
     <ClInclude Include="ImageToolDoc.h" />
     <ClInclude Include="ImageToolView.h" />
+    <ClInclude Include="IppConvert.h" />
     <ClInclude Include="IppDib.h" />
+    <ClInclude Include="IppImage.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RGBBYTE.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +203,7 @@
     <ClCompile Include="ImageTool.cpp" />
     <ClCompile Include="ImageToolDoc.cpp" />
     <ClCompile Include="ImageToolView.cpp" />
+    <ClCompile Include="IppConvert.cpp" />
     <ClCompile Include="IppDib.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
