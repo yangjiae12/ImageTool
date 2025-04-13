@@ -1,32 +1,45 @@
 # Prerequisites
 *.d
 
-# Compiled Object files
+# 컴파일된 오브젝트 파일들
 *.slo
 *.lo
 *.o
 *.obj
 
-# Precompiled Headers
+# 프리컴파일 헤더 파일들
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
+# 컴파일된 동적 라이브러리들
 *.so
 *.dylib
 *.dll
 
-# Fortran module files
+# Fortran 모듈 파일들
 *.mod
 *.smod
 
-# Compiled Static libraries
+# 컴파일된 정적 라이브러리들
 *.lai
 *.la
 *.a
 *.lib
 
-# Executables
+# 실행 파일들
 *.exe
 *.out
 *.app
+
+# Visual Studio 관련 파일들 (MFC에서 사용)
+.vs/
+
+# 빌드 디렉토리
+Debug/
+Release/
+
+# 기타 사용자별 설정 파일들
+*.user
+*.suo
+*.ncb
+*.aps
