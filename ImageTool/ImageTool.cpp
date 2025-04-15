@@ -33,6 +33,7 @@ END_MESSAGE_MAP()
 // CImageToolApp 생성
 
 CImageToolApp::CImageToolApp() noexcept
+	:m_pNewDib(NULL)
 {
 	m_bHiColorIcons = TRUE;
 
@@ -233,4 +234,7 @@ void CImageToolApp::SaveCustomState()
 // CImageToolApp 메시지 처리기
 
 
-
+void AfxNewBitmap(IppDib& dib) {
+	theApp.m_pNewDib = &dib;
+	AfxGetMainWnd()->SendMessage(WM_COMMAND, ID_FILE_NEW);
+}

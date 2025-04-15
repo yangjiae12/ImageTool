@@ -19,12 +19,18 @@
 #endif
 
 
+#include "IppDib.h"
+#include "IppImage.h"
+#include "IppConvert.h"
+#include "IppEnhance.h"
+
 
 // CImageToolDoc
 
 IMPLEMENT_DYNCREATE(CImageToolDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CImageToolDoc, CDocument)
+	ON_COMMAND(ID_IMAGE_INVERSE, &CImageToolDoc::OnImageInverse)
 END_MESSAGE_MAP()
 
 
@@ -47,6 +53,10 @@ BOOL CImageToolDoc::OnNewDocument()
 
 	// TODO: 여기에 재초기화 코드를 추가합니다.
 	// SDI 문서는 이 문서를 다시 사용합니다.
+	BOOL ret = TRUE;
+	m_Dib = *(theApp.m_pNewDib);
+	theApp.m_pNewDib = NULL;
+
 
 	return TRUE;
 }
@@ -156,4 +166,15 @@ BOOL CImageToolDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
 	return m_Dib.Save(CT2A(lpszPathName));
+}
+
+
+void CImageToolDoc::OnImageInverse()
+{
+	IppByteImage img;
+	IppDibToImage(m_Dib, img);
+	IppInverse(img);
+	IppDib dib;
+	IppImageToDib(img, dib);
+	AfxNewBitmap(dib);
 }
