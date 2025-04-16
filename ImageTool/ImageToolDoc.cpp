@@ -23,6 +23,8 @@
 #include "IppImage.h"
 #include "IppConvert.h"
 #include "IppEnhance.h"
+#include "CGammaCorrectionDlg.h"
+#include "CHistogramDlg.h"
 
 
 // CImageToolDoc
@@ -31,6 +33,9 @@ IMPLEMENT_DYNCREATE(CImageToolDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CImageToolDoc, CDocument)
 	ON_COMMAND(ID_IMAGE_INVERSE, &CImageToolDoc::OnImageInverse)
+	ON_COMMAND(ID_BRIGHTNESS_CONTRAST, &CImageToolDoc::OnBrightnessContrast)
+	ON_COMMAND(ID_GAMMA_CORRECTION, &CImageToolDoc::OnGammaCorrection)
+	ON_COMMAND(ID_VIEW_HISTOGRAM, &CImageToolDoc::OnViewHistogram)
 END_MESSAGE_MAP()
 
 
@@ -177,4 +182,48 @@ void CImageToolDoc::OnImageInverse()
 	IppDib dib;
 	IppImageToDib(img, dib);
 	AfxNewBitmap(dib);
+}
+
+
+void CImageToolDoc::OnBrightnessContrast()
+{
+	IppByteImage img;
+	IppDibToImage(m_Dib, img);
+
+	IppBrightness(img, -60);
+	IppContrast(img, -50); //입력가능 범위 -100~100
+
+	IppDib dib;
+	IppImageToDib(img, dib);
+
+	AfxNewBitmap(dib);
+}
+
+
+void CImageToolDoc::OnGammaCorrection()
+{
+	CGammaCorrectionDlg dlg;
+
+	if (dlg.DoModal() == IDOK) {
+		IppByteImage img;
+		IppDibToImage(m_Dib, img);
+
+		IppGammaCorrection(img, dlg.m_fGamma);
+
+		IppDib dib;
+		IppImageToDib(img, dib);
+
+		AfxNewBitmap(dib);
+
+
+	}
+
+}
+
+
+void CImageToolDoc::OnViewHistogram()
+{
+	CHistogramDlg dlg;
+	dlg.SetImage(&m_Dib);
+	dlg.DoModal();
 }

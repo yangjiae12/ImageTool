@@ -51,4 +51,7 @@ public:
 	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
 	afx_msg void OnImageInverse();
+	afx_msg void OnBrightnessContrast();
+	afx_msg void OnGammaCorrection();
+	afx_msg void OnViewHistogram();
 };
