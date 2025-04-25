@@ -63,3 +63,41 @@ void IppHistogram(IppByteImage& img, float histo[256])
 	}
 
 }
+
+void IppHistogramStretching(IppByteImage& img)
+{
+	int size = img.GetSize();
+	BYTE* p = img.GetPixels();
+
+	// 최대, 최소 그레이스케일 값 계산
+	BYTE gray_max, gray_min;
+	gray_max = gray_min = p[0];
+	for (int i = 1; i < size; i++) {
+		if (gray_max < p[i]) gray_max = p[i];
+		if (gray_min > p[i]) gray_min = p[i];
+	}
+
+	// 히스토그램 스트레칭
+	for (int i = 0; i < size; i++)
+		p[i] = (p[i] - gray_min) * 255 / (gray_max - gray_min);
+
+}
+
+void IppHistogramEqualization(IppByteImage& img)
+{
+	int size = img.GetSize();
+	BYTE* p = img.GetPixels();
+
+	float hist[256];
+	IppHistogram(img, hist);
+
+	float cdf[256] = { 0.0, };
+	cdf[0] = hist[0];
+	for (int i = 1; i < 256; i++)
+		cdf[i] = cdf[i - 1] + hist[i];
+
+	// 히스토그램 균등화
+	for (int i = 0; i < size; i++)
+		p[i] = static_cast<BYTE>(limit(cdf[p[i]] * 255));
+
+}

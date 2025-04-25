@@ -54,4 +54,10 @@ public:
 	afx_msg void OnBrightnessContrast();
 	afx_msg void OnGammaCorrection();
 	afx_msg void OnViewHistogram();
+	afx_msg void OnHistoStretching();
+	afx_msg void OnHistoEqualization();
+	afx_msg void OnFilterMean();
+	afx_msg void OnFilterWeightedMean();
+	afx_msg void OnFilterMean2();
+	afx_msg void OnFilterWeightedMean2();
 };

@@ -25,6 +25,7 @@
 #include "IppEnhance.h"
 #include "CGammaCorrectionDlg.h"
 #include "CHistogramDlg.h"
+#include "IppFilter.h"
 
 
 // CImageToolDoc
@@ -36,6 +37,12 @@ BEGIN_MESSAGE_MAP(CImageToolDoc, CDocument)
 	ON_COMMAND(ID_BRIGHTNESS_CONTRAST, &CImageToolDoc::OnBrightnessContrast)
 	ON_COMMAND(ID_GAMMA_CORRECTION, &CImageToolDoc::OnGammaCorrection)
 	ON_COMMAND(ID_VIEW_HISTOGRAM, &CImageToolDoc::OnViewHistogram)
+	ON_COMMAND(ID_HISTO_STRETCHING, &CImageToolDoc::OnHistoStretching)
+	ON_COMMAND(ID_HISTO_EQUALIZATION, &CImageToolDoc::OnHistoEqualization)
+	ON_COMMAND(ID_FILTER_MEAN, &CImageToolDoc::OnFilterMean)
+	ON_COMMAND(ID_FILTER_WEIGHTED_MEAN, &CImageToolDoc::OnFilterWeightedMean)
+	ON_COMMAND(ID_FILTER_MEAN2, &CImageToolDoc::OnFilterMean2)
+	ON_COMMAND(ID_FILTER_WEIGHTED_MEAN2, &CImageToolDoc::OnFilterWeightedMean2)
 END_MESSAGE_MAP()
 
 
@@ -226,4 +233,94 @@ void CImageToolDoc::OnViewHistogram()
 	CHistogramDlg dlg;
 	dlg.SetImage(&m_Dib);
 	dlg.DoModal();
+}
+
+
+void CImageToolDoc::OnHistoStretching()
+{
+	IppByteImage img;
+	IppDibToImage(m_Dib, img);
+
+	IppHistogramStretching(img);
+
+	IppDib dib;
+	IppImageToDib(img, dib);
+	AfxNewBitmap(dib);
+
+}
+
+
+void CImageToolDoc::OnHistoEqualization()
+{
+	IppByteImage img;
+	IppDibToImage(m_Dib, img);
+
+	IppHistogramEqualization(img);
+
+	IppDib dib;
+	IppImageToDib(img, dib);
+	AfxNewBitmap(dib);
+}
+
+
+void CImageToolDoc::OnFilterMean()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterMean(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+
+}
+
+
+void CImageToolDoc::OnFilterWeightedMean()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterWeightedMean(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+
+}
+
+
+void CImageToolDoc::OnFilterMean2()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterMean2(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+
+}
+
+
+void CImageToolDoc::OnFilterWeightedMean2()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterWeightedMean2(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
 }
