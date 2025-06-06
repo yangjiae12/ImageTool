@@ -60,4 +60,7 @@ public:
 	afx_msg void OnFilterWeightedMean();
 	afx_msg void OnFilterMean2();
 	afx_msg void OnFilterWeightedMean2();
+	afx_msg void OnFilterLaplacian();
+	afx_msg void OnFilterUnsharpMask();
+	afx_msg void OnFilterHighboost();
 };

@@ -43,6 +43,9 @@ BEGIN_MESSAGE_MAP(CImageToolDoc, CDocument)
 	ON_COMMAND(ID_FILTER_WEIGHTED_MEAN, &CImageToolDoc::OnFilterWeightedMean)
 	ON_COMMAND(ID_FILTER_MEAN2, &CImageToolDoc::OnFilterMean2)
 	ON_COMMAND(ID_FILTER_WEIGHTED_MEAN2, &CImageToolDoc::OnFilterWeightedMean2)
+	ON_COMMAND(ID_FILTER_LAPLACIAN, &CImageToolDoc::OnFilterLaplacian)
+	ON_COMMAND(ID_FILTER_UNSHARP_MASK, &CImageToolDoc::OnFilterUnsharpMask)
+	ON_COMMAND(ID_FILTER_HIGHBOOST, &CImageToolDoc::OnFilterHighboost)
 END_MESSAGE_MAP()
 
 
@@ -318,6 +321,50 @@ void CImageToolDoc::OnFilterWeightedMean2()
 	IppDibToImage(m_Dib, imgSrc);
 
 	IppFilterWeightedMean2(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+}
+
+void CImageToolDoc::OnFilterLaplacian()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterLaplacian(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+}
+
+
+void CImageToolDoc::OnFilterUnsharpMask()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterUnsharpMask(imgSrc, imgDst);
+
+	IppDib dib;
+	IppImageToDib(imgDst, dib);
+
+	AfxNewBitmap(dib);
+}
+
+
+void CImageToolDoc::OnFilterHighboost()
+{
+	IppByteImage imgSrc;
+	IppByteImage imgDst;
+	IppDibToImage(m_Dib, imgSrc);
+
+	IppFilterHighboost(imgSrc, imgDst, 1.8);
 
 	IppDib dib;
 	IppImageToDib(imgDst, dib);
